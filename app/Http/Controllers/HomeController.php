@@ -95,18 +95,29 @@ class HomeController extends Controller
     $search = $request->search;
     $user = auth()->user();
 
+    if($user){
     $count = cart::where('phone', $user->phone)->count();
 
-    if ($search == '') {
+      if ($search == '') {
 
-      $data = product::paginate(6);
+        $data = product::paginate(6);
 
+        return view('user.productView', compact('data', 'count'));
+      }
+
+      $data = product::where('title', 'like', '%' . $search . '%')->get();
       return view('user.productView', compact('data', 'count'));
-    }
+      echo "search";
+    } else {
+        if ($search == '') {
 
-    $data = product::where('title', 'like', '%' . $search . '%')->get();
-    return view('user.productView', compact('data', 'count'));
-    echo "search";
+          $data = product::paginate(6);
+
+          return view('user.productView', compact('data'));
+        }
+        $data = product::where('title', 'like', '%' . $search . '%')->get();
+        return view('user.productView', compact('data'));
+    }
   }
 
   public function addcart(Request $request, $id)

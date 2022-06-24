@@ -141,7 +141,7 @@ https://templatemo.com/tm-546-sixteen-clothing
               <img height="250" width="100" src="/productimage/{{$product->image}}" alt="">
               <div class="down-content">
                 <h4>{{$product->title}}</h4>
-                <h6>${{$product->price}}</h6>
+                <h6>₱{{$product->price}}</h6>
                 <p>{{$product->description}}</p>
              
             <form action="{{url('addcart', $product->id)}} " method="POST">
